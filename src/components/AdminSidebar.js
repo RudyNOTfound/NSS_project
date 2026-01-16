@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 export default function AdminSidebar() {
   const pathname = usePathname();
 
-  // Removed "Reports" and "Settings" from this array
   const navItems = [
+    { name: 'Overview', href: '/admin/overview', icon: '🏠' },
     { name: 'Dashboard', href: '/admin/dashboard', icon: '📊' },
     { name: 'Users', href: '/admin/users', icon: '👥' },
     { name: 'Donations', href: '/admin/donations', icon: '💰' },
