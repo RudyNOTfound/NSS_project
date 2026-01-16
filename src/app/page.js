@@ -10,7 +10,7 @@ export default function AuthPage() {
     e.preventDefault();
     // In a real app, you've verify credentials here.
     // For now, we redirect directly to the dashboard.
-    router.push('/dashboard');
+    router.push('/user/dashboard');
   };
 
   return (
