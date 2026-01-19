@@ -125,7 +125,7 @@ export default function UserDashboard() {
                 {recentDonation ? (
                   <div className="bg-gray-50 rounded-xl p-4 flex items-center justify-between border border-gray-100">
                     <div>
-                      <p className="font-bold text-gray-800">Donation to HopeGive</p>
+                      <p className="font-bold text-gray-800">Donation to NSS_PROJECT</p>
                       <p className="text-xs text-gray-400">
                          <span suppressHydrationWarning>
                            {new Date(recentDonation.createdAt).toLocaleDateString()}

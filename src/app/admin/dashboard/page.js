@@ -58,26 +58,24 @@ export default function AdminDashboard() {
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Total Registrations</p>
             <h2 className="text-3xl font-extrabold text-gray-900">{data.stats.totalUsers}</h2>
-            <p className="text-xs text-green-500 font-bold mt-2">+12% from last month</p>
           </div>
 
           {/* Total Donations */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Total Donations</p>
             <h2 className="text-3xl font-extrabold text-gray-900">₹{data.stats.totalRaised.toLocaleString()}</h2>
-            <p className="text-xs text-green-500 font-bold mt-2">+24% from last month</p>
           </div>
 
           {/* This Month */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
-            <div className="absolute right-4 top-4 p-2 bg-purple-50 text-purple-600 rounded-lg text-xl">📈</div>
+            
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">This Month</p>
             <h2 className="text-3xl font-extrabold text-gray-900">₹{data.stats.thisMonthRaised.toLocaleString()}</h2>
           </div>
 
           {/* Pending */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
-            <div className="absolute right-4 top-4 p-2 bg-orange-50 text-orange-600 rounded-lg text-xl">⏳</div>
+            
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Pending</p>
             <h2 className="text-3xl font-extrabold text-gray-900">{data.stats.pendingDonations}</h2>
           </div>

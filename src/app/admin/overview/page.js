@@ -55,7 +55,7 @@ export default function AdminDashboard() {
               
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner">
-                  👥
+                  웃
                 </div>
                 <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">Total Users</p>
                 <h2 className="text-6xl font-extrabold text-gray-900">
@@ -73,7 +73,7 @@ export default function AdminDashboard() {
               
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner">
-                  💰
+                  ₹
                 </div>
                 <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">Total Raised</p>
                 <h2 className="text-6xl font-extrabold text-gray-900">
@@ -96,9 +96,7 @@ export default function AdminDashboard() {
                  <h2 className="text-2xl font-bold text-gray-900">Donation Status</h2>
                  <p className="text-gray-500">Breakdown of all {stats.totalDonationsCount} transactions</p>
                </div>
-               <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-xl">
-                 📊
-               </div>
+               
              </div>
 
              {/* Status Bars */}

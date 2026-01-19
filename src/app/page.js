@@ -95,10 +95,10 @@ export default function AuthPage() {
   return (
     <div className="flex min-h-screen font-sans">
       {/* Left Side - Hero */}
-      <div className="hidden lg:flex flex-col justify-center items-center w-1/2 bg-[#8b5cf6] text-white p-12 relative overflow-hidden">
+      <div className="hidden lg:flex flex-col justify-center items-center w-1/2 bg-[url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1000')] bg-cover bg-center bg-no-repeat bg-purple-900 bg-blend-overlay text-white p-12 relative overflow-hidden">
         <div className="z-10 text-center">
           <div className="mb-6 inline-block p-4 bg-white/20 rounded-2xl backdrop-blur-md text-3xl">❤</div>
-          <h1 className="text-5xl font-bold mb-4">HopeGive</h1>
+          <h1 className="text-5xl font-bold mb-4">NSS_PROJECT</h1>
           <p className="text-lg opacity-90 max-w-md mx-auto">Empowering communities through transparent donations.</p>
           <div className="flex justify-center gap-12 mt-12">
             <div><p className="text-3xl font-bold">10K+</p><p className="text-sm opacity-75 text-center">Donors</p></div>
@@ -127,7 +127,7 @@ export default function AuthPage() {
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-2 uppercase">Full Name</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">👤</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">웃</span>
                   <input onChange={(e) => setName(e.target.value)} type="text" placeholder="John Doe" className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-purple-500" />
                 </div>
               </div>
@@ -142,7 +142,7 @@ export default function AuthPage() {
             <div>
               <label className="block text-xs font-bold text-gray-700 mb-2 uppercase">Password</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">🔒</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">⚷</span>
                 <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="••••••••" className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-purple-500" />
               </div>
             </div>

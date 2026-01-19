@@ -7,17 +7,17 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: 'Overview', href: '/admin/overview', icon: '🏠' },
-    { name: 'Dashboard', href: '/admin/dashboard', icon: '📊' },
-    { name: 'Users', href: '/admin/users', icon: '👥' },
-    { name: 'Donations', href: '/admin/donations', icon: '💰' },
+    { name: 'OVERVIEW', href: '/admin/overview'},
+    { name: 'DASHBOARD', href: '/admin/dashboard'},
+    { name: 'USERS', href: '/admin/users'},
+    { name: 'DONATIONS', href: '/admin/donations' },
   ];
 
   return (
     <aside className="w-64 bg-[#0f111a] text-white p-6 flex flex-col fixed h-full shadow-xl z-50">
       <div className="flex items-center gap-2 mb-10">
         <div className="bg-purple-500 p-2 rounded-lg font-bold text-white">❤</div>
-        <span className="text-xl font-bold tracking-tight">HopeGive</span>
+        <span className="text-xl font-bold tracking-tight">NSS_PROJECT</span>
       </div>
       
       <nav className="space-y-2 flex-1">

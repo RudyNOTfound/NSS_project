@@ -3,23 +3,29 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
-    // Check if the user is trying to access an Admin page
-    if (req.nextUrl.pathname.startsWith("/admin")) {
-      // If their role is NOT "admin", kick them out to the User Dashboard
-      if (req.nextauth.token?.role !== "admin") {
-        return NextResponse.redirect(new URL("/user/dashboard", req.url));
-      }
+    // Get the user's role and the page they are trying to visit
+    const role = req.nextauth.token?.role;
+    const path = req.nextUrl.pathname;
+
+    // 1. Protect ADMIN routes: If a regular User tries to go to /admin...
+    if (path.startsWith("/admin") && role !== "admin") {
+      // ...kick them back to User Dashboard
+      return NextResponse.redirect(new URL("/user/dashboard", req.url));
+    }
+
+    // 2. Protect USER routes: If an Admin tries to go to /user...
+    if (path.startsWith("/user") && role === "admin") {
+      // ...kick them back to Admin Dashboard
+      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
     }
   },
   {
     callbacks: {
-      // This ensures the middleware only runs if the user is logged in first
-      authorized: ({ token }) => !!token,
+      authorized: ({ token }) => !!token, // Ensure user is logged in
     },
   }
 );
 
 export const config = {
-  // Apply this rule to all /user and /admin pages
   matcher: ["/user/:path*", "/admin/:path*"],
 };

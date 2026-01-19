@@ -92,21 +92,21 @@ export default function ManageUsers() {
         {/* Stats Cards  */}
         <div className="grid grid-cols-3 gap-6 mb-10">
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-            <div className="p-3 bg-purple-50 text-purple-600 rounded-xl">👤</div>
+        
             <div>
               <p className="text-xs font-bold text-gray-400 uppercase">Total Users</p>
               <p className="text-2xl font-bold text-gray-900">{totalUsers}</p>
             </div>
           </div>
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-             <div className="p-3 bg-orange-50 text-orange-600 rounded-xl">🔑</div>
+             
              <div>
                <p className="text-xs font-bold text-gray-400 uppercase">Admin Users</p>
                <p className="text-2xl font-bold text-gray-900">{adminCount}</p>
              </div>
           </div>
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-             <div className="p-3 bg-green-50 text-green-600 rounded-xl">👥</div>
+             
              <div>
                <p className="text-xs font-bold text-gray-400 uppercase">Regular Users</p>
                <p className="text-2xl font-bold text-gray-900">{regularCount}</p>
@@ -119,11 +119,11 @@ export default function ManageUsers() {
            <h2 className="text-xl font-bold text-gray-800">All Users</h2>
            <div className="flex gap-3">
              <input 
-               type="text" 
-               placeholder="Search users..." 
-               className="px-4 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-purple-500"
-               onChange={(e) => setSearch(e.target.value)}
-             />
+  type="text" 
+  placeholder="Search users..." 
+  className="px-4 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-purple-500 placeholder-gray-500 text-gray-900"
+  onChange={(e) => setSearch(e.target.value)}
+/>
              <button onClick={handleExport} className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-50">
                Export CSV
              </button>

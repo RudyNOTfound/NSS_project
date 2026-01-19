@@ -116,22 +116,22 @@ export default function AdminDonations() {
         {/* Stats Grid  */}
         <div className="grid grid-cols-4 gap-6 mb-10">
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <div className="p-3 bg-green-50 text-green-600 rounded-xl w-fit mb-3">💰</div>
+            <div className="p-3 bg-green-100 text-green-600 rounded-xl w-fit mb-3"></div>
             <p className="text-xs font-bold text-gray-400 uppercase">Total Received</p>
-            <p className="text-2xl font-bold text-gray-900">${stats.total.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-gray-900">₹{stats.total.toLocaleString()}</p>
           </div>
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-xl w-fit mb-3">📈</div>
+            <div className="p-3 bg-blue-100 text-blue-600 rounded-xl w-fit mb-3"></div>
             <p className="text-xs font-bold text-gray-400 uppercase">This Month</p>
-            <p className="text-2xl font-bold text-gray-900">${stats.thisMonth.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-gray-900">₹{stats.thisMonth.toLocaleString()}</p>
           </div>
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <div className="p-3 bg-purple-50 text-purple-600 rounded-xl w-fit mb-3">✅</div>
+            <div className="p-3 bg-purple-100 text-purple-600 rounded-xl w-fit mb-3"></div>
             <p className="text-xs font-bold text-gray-400 uppercase">Successful</p>
             <p className="text-2xl font-bold text-gray-900">{stats.successful}</p>
           </div>
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <div className="p-3 bg-yellow-50 text-yellow-600 rounded-xl w-fit mb-3">⏳</div>
+            <div className="p-3 bg-yellow-100 text-yellow-600 rounded-xl w-fit mb-3"></div>
             <p className="text-xs font-bold text-gray-400 uppercase">Pending</p>
             <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
           </div>
@@ -144,7 +144,7 @@ export default function AdminDonations() {
              <input 
                type="text" 
                placeholder="Search donor or ID..." 
-               className="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-purple-500"
+               className="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-purple-500 placeholder-gray-500 text-gray-900"
                onChange={(e) => setSearch(e.target.value)}
              />
            </div>
@@ -178,7 +178,7 @@ export default function AdminDonations() {
                       </div>
                     </div>
                   </td>
-                  <td className="p-5 font-bold text-gray-900">${d.amount}</td>
+                  <td className="p-5 font-bold text-gray-900">₹{d.amount}</td>
                   <td className="p-5 text-sm text-gray-500">{new Date(d.createdAt).toLocaleDateString()}</td>
                   <td className="p-5 text-xs font-mono text-gray-400">
                     {d.paymentId ? d.paymentId.substring(0, 16) + "..." : "---"}

@@ -29,7 +29,7 @@ export async function POST(req) {
           price_data: {
             currency: "inr",
             product_data: {
-              name: "Donation to HopeGive",
+              name: "Donation to NSS_PROJECT",
             },
             unit_amount: Math.round(amount * 100), 
           },
