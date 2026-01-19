@@ -9,38 +9,34 @@ export async function POST(req) {
   try {
     const { amount, email, name } = await req.json();
 
-    // 1. Save a "Pending" record in your database
     await connectMongoDB();
     const newDonation = await Donation.create({
       name: name || "Guest",
       email: email || "guest@example.com",
-      amount: amount, // Amount in dollars
+      amount: amount, 
       status: "pending",
       paymentId: "waiting_for_stripe", 
     });
 
-    // 2. Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
         {
           price_data: {
-            currency: "usd", // Change to "lkr" if you specifically want Sri Lankan Rupees
+            currency: "inr", // ✅ CHANGED: Set currency to Indian Rupee
             product_data: {
               name: "Donation to HopeGive",
             },
-            unit_amount: Math.round(amount * 100), // Stripe expects cents (e.g., $10.00 = 1000)
+            // Stripe expects amount in smallest currency unit (Paise)
+            // 1 Rupee = 100 Paise
+            unit_amount: Math.round(amount * 100), 
           },
           quantity: 1,
         },
       ],
       mode: "payment",
-      // Redirect URLs
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/donate/success?session_id={CHECKOUT_SESSION_ID}&donation_id=${newDonation._id}`,
-      // UPDATE THIS LINE:
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/donate/cancel?donation_id=${newDonation._id}`,
-      
-      // Metadata helps us track this later
       metadata: {
         donationId: newDonation._id.toString(),
       },
