@@ -37,7 +37,8 @@ export async function POST(req) {
       mode: "payment",
       // Redirect URLs
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/donate/success?session_id={CHECKOUT_SESSION_ID}&donation_id=${newDonation._id}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/donate`,
+      // UPDATE THIS LINE:
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/donate/cancel?donation_id=${newDonation._id}`,
       
       // Metadata helps us track this later
       metadata: {

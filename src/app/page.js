@@ -153,10 +153,10 @@ export default function AuthPage() {
           </form>
 
           <div className="mt-8 space-y-3">
-            <p className="text-sm text-gray-500">
+            <div className="text-sm text-gray-500">
               {isLogin ? "Don't have an account?" : "Already have an account?"} 
               <button onClick={() => { setIsLogin(!isLogin); setError(""); }} className="text-purple-600 font-bold ml-1 hover:underline">{isLogin ? "Sign up" : "Sign in"}</button>
-            </p>
+            </div>
           </div>
         </div>
       </div>

@@ -1,100 +1,191 @@
 "use client";
 import AdminSidebar from '../../../components/AdminSidebar';
+import { useEffect, useState } from 'react';
 
-export default function ManageDonations() {
-  const donations = [
-    { name: "Sarah Johnson", amount: "$150", date: "May 15, 2024", id: "TXN-D1", status: "Success", initial: "SJ" },
-    { name: "Michael Chen", amount: "$75", date: "May 14, 2024", id: "TXN-D2", status: "Success", initial: "MC" },
-    { name: "Emily Rodriguez", amount: "$200", date: "May 13, 2024", id: "TXN-D3", status: "Pending", initial: "ER" },
-    { name: "David Kim", amount: "$50", date: "May 12, 2024", id: "TXN-D4", status: "Success", initial: "DK" },
-    { name: "Sarah Johnson", amount: "$100", date: "May 10, 2024", id: "TXN-D5", status: "Success", initial: "SJ" },
-    { name: "Robert Taylor", amount: "$250", date: "May 8, 2024", id: "TXN-D6", status: "Failed", initial: "RT" },
-  ];
+export default function AdminDonations() {
+  const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [stats, setStats] = useState({
+    total: 0,
+    thisMonth: 0,
+    successful: 0,
+    pending: 0
+  });
+
+  const fetchDonations = async () => {
+    try {
+      const res = await fetch("/api/admin/donations");
+      const data = await res.json();
+      
+      if (res.ok) {
+        setDonations(data.donations);
+        calculateStats(data.donations);
+      }
+    } catch (error) {
+      console.error("Error fetching donations:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDonations();
+  }, []);
+
+  // --- STATS CALCULATION LOGIC ---
+  const calculateStats = (data) => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    let total = 0;
+    let monthTotal = 0;
+    let successCount = 0;
+    let pendingCount = 0;
+
+    data.forEach(d => {
+      const amount = Number(d.amount) || 0;
+      const date = new Date(d.createdAt);
+
+      if (d.status === 'success') {
+        total += amount;
+        successCount++;
+        // Check if donation is from this month
+        if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+          monthTotal += amount;
+        }
+      } else if (d.status === 'pending') {
+        pendingCount++;
+      }
+    });
+
+    setStats({
+      total,
+      thisMonth: monthTotal,
+      successful: successCount,
+      pending: pendingCount
+    });
+  };
+
+  // Helper for Colors
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'success': return 'bg-green-100 text-green-600';
+      case 'pending': return 'bg-yellow-50 text-yellow-600';
+      case 'failed':  return 'bg-red-50 text-red-600';
+      default: return 'bg-gray-100 text-gray-500';
+    }
+  };
+
+  // Export to CSV
+  const handleExport = () => {
+    const headers = ["Donor Name,Email,Amount,Status,Date,Transaction ID"];
+    const rows = donations.map(d => 
+      `"${d.name}","${d.email}","${d.amount}","${d.status}","${new Date(d.createdAt).toLocaleDateString()}","${d.paymentId || '-'}"`
+    );
+    const csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].join("\n");
+    const link = document.createElement("a");
+    link.href = encodeURI(csvContent);
+    link.download = "donations_report.csv";
+    link.click();
+  };
+
+  // Filter Logic
+  const filteredDonations = donations.filter(d => 
+    d.name.toLowerCase().includes(search.toLowerCase()) || 
+    d.email.toLowerCase().includes(search.toLowerCase()) ||
+    (d.paymentId && d.paymentId.toLowerCase().includes(search.toLowerCase()))
+  );
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       <AdminSidebar />
+      
       <main className="flex-1 ml-64 p-10">
-        <div className="flex justify-between items-start mb-8">
+        <div className="mb-8 flex justify-between items-end">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Donations</h1>
-            <p className="text-gray-500">View and manage all donations.</p>
+            <p className="text-gray-500">View and manage all financial records.</p>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors bg-white">
-            📥 Export Report
+          <button onClick={handleExport} className="bg-white border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-gray-50">
+            ⬇ Export Report
           </button>
         </div>
 
-        {/* FINANCIAL SUMMARY CARDS */}
+        {/* Stats Grid  */}
         <div className="grid grid-cols-4 gap-6 mb-10">
-          {[
-            { label: 'Total Received', value: '$1,065', icon: '💰', color: 'bg-purple-50 text-purple-600' },
-            { label: 'This Month', value: '$640', icon: '📈', color: 'bg-blue-50 text-blue-600' },
-            { label: 'Successful', value: '8', icon: '✅', color: 'bg-green-50 text-green-600' },
-            { label: 'Pending', value: '1', icon: '🕒', color: 'bg-orange-50 text-orange-600' }
-          ].map((stat, i) => (
-            <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="flex justify-between items-center mb-4">
-                <span className={`p-2 rounded-lg ${stat.color}`}>{stat.icon}</span>
-              </div>
-              <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{stat.label}</p>
-              <p className="text-2xl font-bold text-gray-800 mt-1">{stat.value}</p>
-            </div>
-          ))}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="p-3 bg-green-50 text-green-600 rounded-xl w-fit mb-3">💰</div>
+            <p className="text-xs font-bold text-gray-400 uppercase">Total Received</p>
+            <p className="text-2xl font-bold text-gray-900">${stats.total.toLocaleString()}</p>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="p-3 bg-blue-50 text-blue-600 rounded-xl w-fit mb-3">📈</div>
+            <p className="text-xs font-bold text-gray-400 uppercase">This Month</p>
+            <p className="text-2xl font-bold text-gray-900">${stats.thisMonth.toLocaleString()}</p>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="p-3 bg-purple-50 text-purple-600 rounded-xl w-fit mb-3">✅</div>
+            <p className="text-xs font-bold text-gray-400 uppercase">Successful</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.successful}</p>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="p-3 bg-yellow-50 text-yellow-600 rounded-xl w-fit mb-3">⏳</div>
+            <p className="text-xs font-bold text-gray-400 uppercase">Pending</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
+          </div>
         </div>
 
-        {/* DONATIONS TABLE */}
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="p-6 border-b border-gray-50 flex justify-between items-center">
-            <h3 className="font-bold text-gray-800 flex items-center gap-2">
-              <span className="text-purple-500">$</span> All Donations
-            </h3>
-            <div className="flex gap-3">
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">🔍</span>
-                <input 
-                  type="text" 
-                  placeholder="Search donations..." 
-                  className="pl-9 pr-4 py-2 bg-gray-50 rounded-xl text-xs border-none focus:ring-1 focus:ring-purple-500 outline-none w-64"
-                />
-              </div>
-              <button className="p-2 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
-                 <span className="text-xs font-bold text-gray-500">⏳ Filter</span>
-              </button>
-            </div>
-          </div>
+        {/* Action Bar */}
+        <div className="flex justify-between items-center mb-6">
+           <h2 className="text-xl font-bold text-gray-800">All Donations</h2>
+           <div className="w-64">
+             <input 
+               type="text" 
+               placeholder="Search donor or ID..." 
+               className="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-purple-500"
+               onChange={(e) => setSearch(e.target.value)}
+             />
+           </div>
+        </div>
 
+        {/* Donations Table */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <table className="w-full text-left">
-            <thead className="bg-gray-50/50 text-gray-400 text-[10px] uppercase font-bold tracking-widest">
+            <thead className="bg-gray-50 border-b border-gray-100">
               <tr>
-                <th className="px-8 py-4">Donor</th>
-                <th className="px-8 py-4 text-center">Amount</th>
-                <th className="px-8 py-4">Date</th>
-                <th className="px-8 py-4">Transaction ID</th>
-                <th className="px-8 py-4 text-right pr-12">Status</th>
+                <th className="p-5 text-xs font-bold text-gray-400 uppercase">Donor</th>
+                <th className="p-5 text-xs font-bold text-gray-400 uppercase">Amount</th>
+                <th className="p-5 text-xs font-bold text-gray-400 uppercase">Date</th>
+                <th className="p-5 text-xs font-bold text-gray-400 uppercase">Transaction ID</th>
+                <th className="p-5 text-xs font-bold text-gray-400 uppercase text-right">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {donations.map((row, i) => (
-                <tr key={i} className="hover:bg-gray-50/50 transition-colors">
-                  <td className="px-8 py-5">
+              {loading ? (
+                <tr><td colSpan="5" className="p-10 text-center text-gray-400">Loading financial data...</td></tr>
+              ) : filteredDonations.map((d) => (
+                <tr key={d._id} className="hover:bg-gray-50/50 transition-colors">
+                  <td className="p-5">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-[10px] font-bold">
-                        {row.initial}
+                      <div className="w-8 h-8 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center text-xs font-bold">
+                        {d.name.charAt(0).toUpperCase()}
                       </div>
-                      <span className="text-sm font-bold text-gray-800">{row.name}</span>
+                      <div>
+                        <p className="font-bold text-gray-800 text-sm">{d.name}</p>
+                        <p className="text-xs text-gray-400">{d.email}</p>
+                      </div>
                     </div>
                   </td>
-                  <td className="px-8 py-5 text-sm font-bold text-gray-900 text-center">{row.amount}</td>
-                  <td className="px-8 py-5 text-sm text-gray-500">{row.date}</td>
-                  <td className="px-8 py-5 text-xs text-gray-400 font-mono">{row.id}</td>
-                  <td className="px-8 py-5 text-right pr-12">
-                    <span className={`text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-wider ${
-                      row.status === 'Success' ? 'bg-green-100 text-green-600' : 
-                      row.status === 'Pending' ? 'bg-orange-100 text-orange-600' : 
-                      'bg-red-100 text-red-600'
-                    }`}>
-                      ● {row.status}
+                  <td className="p-5 font-bold text-gray-900">${d.amount}</td>
+                  <td className="p-5 text-sm text-gray-500">{new Date(d.createdAt).toLocaleDateString()}</td>
+                  <td className="p-5 text-xs font-mono text-gray-400">
+                    {d.paymentId ? d.paymentId.substring(0, 16) + "..." : "---"}
+                  </td>
+                  <td className="p-5 text-right">
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${getStatusColor(d.status)}`}>
+                      {d.status}
                     </span>
                   </td>
                 </tr>
@@ -102,6 +193,7 @@ export default function ManageDonations() {
             </tbody>
           </table>
         </div>
+
       </main>
     </div>
   );
