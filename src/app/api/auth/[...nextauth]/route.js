@@ -41,18 +41,17 @@ export const authOptions = {
   pages: {
     signIn: "/",
   },
-  // --- NEW: CALLBACKS TO HANDLE ROLES ---
+
   callbacks: {
     async jwt({ token, user }) {
-      // If we just logged in, 'user' has data from the database.
-      // Add the role to the token.
+      
       if (user) {
         token.role = user.role; 
       }
       return token;
     },
     async session({ session, token }) {
-      // Pass the role from the token to the active session
+      
       if (session?.user) {
         session.user.role = token.role;
       }

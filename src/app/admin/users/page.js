@@ -9,7 +9,7 @@ export default function ManageUsers() {
   const [search, setSearch] = useState("");
   const { data: session } = useSession();
 
-  // Fetch users on load
+
   const fetchUsers = async () => {
     try {
       const res = await fetch("/api/admin/users");
@@ -26,7 +26,7 @@ export default function ManageUsers() {
     fetchUsers();
   }, []);
 
-  // Handle Role Change
+
   const handleRoleChange = async (userId, currentRole) => {
     const newRole = currentRole === "admin" ? "user" : "admin";
     const confirmMsg = `Are you sure you want to change this user's role to ${newRole.toUpperCase()}?`;
@@ -52,7 +52,7 @@ export default function ManageUsers() {
     }
   };
 
-  // Handle Export to CSV
+
   const handleExport = () => {
     const headers = ["Name,Email,Role,Registered Date"];
     const rows = users.map(user => 
@@ -68,13 +68,13 @@ export default function ManageUsers() {
     document.body.removeChild(link);
   };
 
-  // Filter Logic
+
   const filteredUsers = users.filter(user => 
     user.name.toLowerCase().includes(search.toLowerCase()) || 
     user.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Stats Logic
+
   const totalUsers = users.length;
   const adminCount = users.filter(u => u.role === 'admin').length;
   const regularCount = totalUsers - adminCount;
@@ -89,7 +89,7 @@ export default function ManageUsers() {
           <p className="text-gray-500">View and manage all registered users.</p>
         </div>
 
-        {/* Stats Cards  */}
+      
         <div className="grid grid-cols-3 gap-6 mb-10">
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
         
@@ -114,7 +114,7 @@ export default function ManageUsers() {
           </div>
         </div>
 
-        {/* Action Bar */}
+   
         <div className="flex justify-between items-center mb-6">
            <h2 className="text-xl font-bold text-gray-800">All Users</h2>
            <div className="flex gap-3">
@@ -130,7 +130,7 @@ export default function ManageUsers() {
            </div>
         </div>
 
-        {/* Users Table */}
+  
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <table className="w-full text-left">
             <thead className="bg-gray-50 border-b border-gray-100">

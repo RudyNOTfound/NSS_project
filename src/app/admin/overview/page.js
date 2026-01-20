@@ -26,7 +26,7 @@ export default function AdminDashboard() {
     fetchStats();
   }, []);
 
-  // Helper to calculate percentage for progress bars
+  
   const getPercentage = (count) => {
     if (stats.totalDonationsCount === 0) return 0;
     return Math.round((count / stats.totalDonationsCount) * 100);
@@ -37,19 +37,19 @@ export default function AdminDashboard() {
       <AdminSidebar />
       
       <main className="flex-1 ml-64 p-10 flex flex-col h-screen overflow-hidden">
-        {/* Page Header */}
+  
         <div className="mb-10">
           <h1 className="text-4xl font-extrabold text-gray-900">Admin Overview</h1>
           <p className="text-gray-500 mt-2">Real-time platform insights and performance.</p>
         </div>
 
-        {/* Content Grid - Fills remaining height */}
+       
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1 pb-10">
           
-          {/* LEFT COLUMN: The Two Big Stats */}
+         
           <div className="flex flex-col gap-8 h-full">
             
-            {/* Card 1: Total Users */}
+        
             <div className="bg-white rounded-3xl p-10 shadow-sm border border-gray-100 flex-1 flex flex-col justify-center relative overflow-hidden group hover:shadow-lg transition-shadow">
               <div className="absolute right-0 top-0 w-64 h-64 bg-purple-50 rounded-full blur-3xl -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
               
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Card 2: Total Donations (Money) */}
+  
             <div className="bg-white rounded-3xl p-10 shadow-sm border border-gray-100 flex-1 flex flex-col justify-center relative overflow-hidden group hover:shadow-lg transition-shadow">
               <div className="absolute right-0 top-0 w-64 h-64 bg-pink-50 rounded-full blur-3xl -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
               
@@ -87,10 +87,10 @@ export default function AdminDashboard() {
 
           </div>
 
-          {/* RIGHT COLUMN: Donation Status Breakdown */}
+        
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-10 h-full flex flex-col relative overflow-hidden">
              
-             {/* Header */}
+        
              <div className="flex items-center justify-between mb-12 relative z-10">
                <div>
                  <h2 className="text-2xl font-bold text-gray-900">Donation Status</h2>
@@ -99,10 +99,10 @@ export default function AdminDashboard() {
                
              </div>
 
-             {/* Status Bars */}
+             
              <div className="space-y-10 relative z-10 flex-1 justify-center flex flex-col">
                
-               {/* 1. Successful */}
+            
                <div>
                  <div className="flex justify-between items-end mb-2">
                    <span className="font-bold text-gray-700 text-lg flex items-center gap-2">
@@ -119,7 +119,7 @@ export default function AdminDashboard() {
                  <p className="text-right text-xs text-gray-400 mt-1 font-bold">{getPercentage(stats.statusCounts.success)}%</p>
                </div>
 
-               {/* 2. Pending */}
+            
                <div>
                  <div className="flex justify-between items-end mb-2">
                    <span className="font-bold text-gray-700 text-lg flex items-center gap-2">
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
                  <p className="text-right text-xs text-gray-400 mt-1 font-bold">{getPercentage(stats.statusCounts.pending)}%</p>
                </div>
 
-               {/* 3. Failed */}
+            
                <div>
                  <div className="flex justify-between items-end mb-2">
                    <span className="font-bold text-gray-700 text-lg flex items-center gap-2">

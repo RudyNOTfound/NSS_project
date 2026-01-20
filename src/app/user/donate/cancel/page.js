@@ -3,7 +3,7 @@ import { useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Sidebar from "../../../../components/Sidebar";
 
-// Move the logic into a separate component
+
 function CancelContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -50,7 +50,7 @@ function CancelContent() {
   );
 }
 
-// Main Page Component
+
 export default function CancelPage() {
   return (
     <div className="flex min-h-screen bg-gray-50">

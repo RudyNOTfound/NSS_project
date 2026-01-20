@@ -14,11 +14,11 @@ export async function GET(req) {
 
     await connectMongoDB();
 
-    // 1. Fetch Stats
+   
     const totalUsers = await User.countDocuments();
     const pendingDonations = await Donation.countDocuments({ status: "pending" });
 
-    // 2. Financial Calculations (Total & This Month)
+ 
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
@@ -35,12 +35,12 @@ export async function GET(req) {
       }
     });
 
-    // 3. Fetch Recent Users (Limit 5)
+   
     const recentUsers = await User.find({}, "name email role createdAt")
       .sort({ createdAt: -1 })
       .limit(5);
 
-    // 4. Fetch Recent Donations (Limit 5)
+    
     const recentDonations = await Donation.find({})
       .sort({ createdAt: -1 })
       .limit(5);

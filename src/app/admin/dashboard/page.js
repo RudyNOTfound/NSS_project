@@ -28,7 +28,7 @@ export default function AdminDashboard() {
     fetchData();
   }, []);
 
-  // Helpers for formatting
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
@@ -52,28 +52,28 @@ export default function AdminDashboard() {
           <p className="text-gray-500">Monitor registrations and donations at a glance.</p>
         </div>
 
-        {/* --- STATS ROW --- */}
+     
         <div className="grid grid-cols-4 gap-6 mb-10">
-          {/* Total Registrations */}
+        
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Total Registrations</p>
             <h2 className="text-3xl font-extrabold text-gray-900">{data.stats.totalUsers}</h2>
           </div>
 
-          {/* Total Donations */}
+        
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Total Donations</p>
             <h2 className="text-3xl font-extrabold text-gray-900">₹{data.stats.totalRaised.toLocaleString()}</h2>
           </div>
 
-          {/* This Month */}
+        
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
             
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">This Month</p>
             <h2 className="text-3xl font-extrabold text-gray-900">₹{data.stats.thisMonthRaised.toLocaleString()}</h2>
           </div>
 
-          {/* Pending */}
+        
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
             
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Pending</p>
@@ -81,10 +81,10 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* --- RECENT ACTIVITY ROW --- */}
+  
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
-          {/* LEFT: Recent Users List */}
+   
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-bold text-gray-900">Recent Users</h3>
@@ -122,7 +122,7 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          {/* RIGHT: Recent Donations List */}
+        
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-bold text-gray-900">Recent Donations</h3>

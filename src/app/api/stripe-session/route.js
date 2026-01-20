@@ -11,8 +11,7 @@ export async function POST(req) {
 
     await connectMongoDB();
 
-    // 1. Create Initial Record in Database
-    // We start with a placeholder, but we will update it in milliseconds
+    
     const newDonation = await Donation.create({
       name: name || "Guest",
       email: email || "guest@example.com",
@@ -21,7 +20,7 @@ export async function POST(req) {
       paymentId: "generating_id...", 
     });
 
-    // 2. Create the Stripe Session
+    
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -44,9 +43,7 @@ export async function POST(req) {
       },
     });
 
-    // 3. ✅ CRITICAL UPDATE: Immediately save the Session ID
-    // Now, even if they close the tab (Pending) or Cancel (Failed), 
-    // we have the valid 'cs_test_...' ID in the database.
+    
     await Donation.findByIdAndUpdate(newDonation._id, {
       paymentId: session.id, 
     });

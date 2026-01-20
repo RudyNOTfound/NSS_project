@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true, // No two users can have the same email
+      unique: true, 
     },
     password: {
       type: String,
@@ -17,13 +17,13 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      default: "user", // Default role is 'user', unless we change it to 'admin' manually
+      default: "user", 
     },
   },
-  { timestamps: true } // Adds 'createdAt' and 'updatedAt' times automatically
+  { timestamps: true } 
 );
 
-// If the model User exists, use it; otherwise create a new one.
+
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;

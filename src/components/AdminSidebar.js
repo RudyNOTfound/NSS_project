@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { signOut } from "next-auth/react"; // Import signOut
+import { signOut } from "next-auth/react"; 
 
 export default function AdminSidebar() {
   const pathname = usePathname();
@@ -38,7 +38,7 @@ export default function AdminSidebar() {
         })}
       </nav>
 
-      {/* UPDATED LOGOUT BUTTON */}
+      
       <button 
         onClick={() => signOut({ callbackUrl: "/" })} 
         className="text-gray-400 hover:text-red-400 mt-auto flex items-center gap-2 p-3 border-t border-white/10 pt-6 group w-full text-left"

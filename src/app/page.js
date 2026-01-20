@@ -1,14 +1,14 @@
 "use client";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-// 1. IMPORT getSession HERE
+
 import { signIn, getSession } from "next-auth/react"; 
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
 
-  // State variables
+ 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +18,7 @@ export default function AuthPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // --- REGISTER LOGIC (If creating an account) ---
+    
     if (!isLogin) {
       if (!name || !email || !password) {
         setError("All fields are necessary.");
@@ -37,7 +37,7 @@ export default function AuthPage() {
           e.target.reset();
           setError("");
           setPending(false);
-          setIsLogin(true); // Switch to login view
+          setIsLogin(true); 
           alert("Registration Successful! Please login.");
         } else {
           const errorData = await res.json();
@@ -50,16 +50,16 @@ export default function AuthPage() {
       }
     } 
     
-    // --- LOGIN LOGIC (This is where the new change is!) ---
+   
     else {
       try {
         setPending(true);
         
-        // 1. Attempt to sign in
+        
         const res = await signIn("credentials", {
           email,
           password,
-          redirect: false, // Don't redirect automatically
+          redirect: false, 
         });
 
         if (res.error) {
@@ -68,14 +68,14 @@ export default function AuthPage() {
           return;
         }
 
-        // 2. SUCCESS! Now check WHO logged in (Admin or User?)
+     
         const session = await getSession();
         
         if (session?.user?.role === "admin") {
-           // If Admin -> Go to Admin Overview
+           
            router.replace("/admin/overview");
         } else {
-           // If User -> Go to User Dashboard
+           
            router.replace("/user/dashboard");
         }
 
@@ -86,7 +86,7 @@ export default function AuthPage() {
     }
   };
 
-  // Quick Admin button (Optional, keeps existing functionality)
+  
   const handleAdminRedirect = (e) => {
     e.preventDefault();
     router.push('/admin/overview');
@@ -94,7 +94,7 @@ export default function AuthPage() {
 
   return (
     <div className="flex min-h-screen font-sans">
-      {/* Left Side - Hero */}
+      
       <div className="hidden lg:flex flex-col justify-center items-center w-1/2 bg-[url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1000')] bg-cover bg-center bg-no-repeat bg-purple-900 bg-blend-overlay text-white p-12 relative overflow-hidden">
         <div className="z-10 text-center">
           <div className="mb-6 inline-block p-4 bg-white/20 rounded-2xl backdrop-blur-md text-3xl">❤</div>
@@ -107,7 +107,7 @@ export default function AuthPage() {
         </div>
       </div>
 
-      {/* Right Side - Form */}
+      
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
         <div className="w-full max-w-md text-center">
           <div className="mb-10">

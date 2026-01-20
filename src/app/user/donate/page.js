@@ -50,7 +50,7 @@ export default function DonatePage() {
     <div className="flex min-h-screen bg-gray-50 overflow-hidden relative">
       <Sidebar />
       
-      {/* --- ANIMATED BACKGROUND --- */}
+      
       <div className="fixed inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>

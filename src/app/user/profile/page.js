@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Reuse the history API to calculate totals
+    
     const fetchStats = async () => {
       try {
         const res = await fetch("/api/donations/history");
@@ -48,22 +48,22 @@ export default function ProfilePage() {
       <Sidebar />
       
       <main className="flex-1 ml-64 p-10 flex flex-col">
-        {/* Header */}
+      
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
           <p className="text-gray-500">Manage your account and view your impact.</p>
         </div>
 
-        {/* Content Grid - Fills the remaining space */}
+       
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1">
           
-          {/* Section 1: User Profile Details */}
+          
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-10 flex flex-col items-center justify-center text-center relative overflow-hidden">
-            {/* Decorative Background Blob */}
+            
             <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-pink-50 to-transparent"></div>
 
             <div className="relative z-10">
-              {/* Avatar Circle */}
+              
               <div className="w-32 h-32 bg-pink-100 rounded-full flex items-center justify-center text-4xl font-bold text-pink-600 mb-6 mx-auto shadow-inner border-4 border-white">
                 {session?.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
               </div>
@@ -79,9 +79,9 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Section 2: Total Donation Impact */}
+          
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-10 flex flex-col items-center justify-center text-center relative overflow-hidden">
-             {/* Decorative Background Blob */}
+             
              <div className="absolute top-0 right-0 w-full h-32 bg-gradient-to-b from-purple-50 to-transparent"></div>
 
              <div className="relative z-10 w-full">
@@ -91,7 +91,7 @@ export default function ProfilePage() {
 
                 <div className="grid grid-cols-1 gap-8">
                   
-                  {/* Total Amount Block */}
+                  
                   <div>
                     <p className="text-6xl font-extrabold text-gray-900 mb-2">
                       
@@ -102,7 +102,7 @@ export default function ProfilePage() {
 
                   <div className="w-full h-px bg-gray-100 my-2"></div>
 
-                  {/* Secondary Stats */}
+                  
                   <div className="flex justify-center gap-12">
                     <div>
                       <p className="text-3xl font-bold text-purple-600">{stats.totalCount}</p>

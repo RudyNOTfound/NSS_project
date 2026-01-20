@@ -33,7 +33,7 @@ export default function AdminDonations() {
     fetchDonations();
   }, []);
 
-  // --- STATS CALCULATION LOGIC ---
+
   const calculateStats = (data) => {
     const now = new Date();
     const currentMonth = now.getMonth();
@@ -51,7 +51,7 @@ export default function AdminDonations() {
       if (d.status === 'success') {
         total += amount;
         successCount++;
-        // Check if donation is from this month
+      
         if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
           monthTotal += amount;
         }
@@ -68,7 +68,7 @@ export default function AdminDonations() {
     });
   };
 
-  // Helper for Colors
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'success': return 'bg-green-100 text-green-600';
@@ -78,7 +78,7 @@ export default function AdminDonations() {
     }
   };
 
-  // Export to CSV
+
   const handleExport = () => {
     const headers = ["Donor Name,Email,Amount,Status,Date,Transaction ID"];
     const rows = donations.map(d => 
@@ -91,7 +91,7 @@ export default function AdminDonations() {
     link.click();
   };
 
-  // Filter Logic
+
   const filteredDonations = donations.filter(d => 
     d.name.toLowerCase().includes(search.toLowerCase()) || 
     d.email.toLowerCase().includes(search.toLowerCase()) ||
@@ -113,7 +113,7 @@ export default function AdminDonations() {
           </button>
         </div>
 
-        {/* Stats Grid  */}
+     
         <div className="grid grid-cols-4 gap-6 mb-10">
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <div className="p-3 bg-green-100 text-green-600 rounded-xl w-fit mb-3"></div>
@@ -137,7 +137,7 @@ export default function AdminDonations() {
           </div>
         </div>
 
-        {/* Action Bar */}
+     
         <div className="flex justify-between items-center mb-6">
            <h2 className="text-xl font-bold text-gray-800">All Donations</h2>
            <div className="w-64">
@@ -150,7 +150,7 @@ export default function AdminDonations() {
            </div>
         </div>
 
-        {/* Donations Table */}
+     
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <table className="w-full text-left">
             <thead className="bg-gray-50 border-b border-gray-100">

@@ -6,7 +6,7 @@ import { authOptions } from "../../auth/[...nextauth]/route"; // Import your aut
 
 export async function GET(req) {
   try {
-    // 1. Check who is logged in
+    
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
@@ -15,11 +15,10 @@ export async function GET(req) {
 
     const userEmail = session.user.email;
 
-    // 2. Connect to DB
+    
     await connectMongoDB();
 
-    // 3. Find donations for this specific email
-    // Sort by 'createdAt' descending (-1) so newest appear first
+    
     const donations = await Donation.find({ email: userEmail })
       .sort({ createdAt: -1 });
 

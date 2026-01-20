@@ -3,7 +3,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Sidebar from "../../../../components/Sidebar";
 
-// 1. Logic moved into a sub-component
+
 function SuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -13,7 +13,7 @@ function SuccessContent() {
 
   useEffect(() => {
     if (donationId && sessionId) {
-      // Call your API to confirm the payment was successful
+      
       fetch("/api/confirm-donation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -71,7 +71,7 @@ function SuccessContent() {
   );
 }
 
-// 2. Main Page Component wrapping the content in Suspense
+
 export default function SuccessPage() {
   return (
     <div className="flex min-h-screen bg-gray-50">

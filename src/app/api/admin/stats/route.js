@@ -14,13 +14,13 @@ export async function GET(req) {
 
     await connectMongoDB();
 
-    // 1. Get Total Users
+  
     const totalUsers = await User.countDocuments();
 
-    // 2. Get All Donations to calculate stats
+ 
     const allDonations = await Donation.find({});
 
-    // 3. Calculate Stats
+   
     let totalRaised = 0;
     let statusCounts = {
       success: 0,

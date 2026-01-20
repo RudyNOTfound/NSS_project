@@ -11,12 +11,12 @@ const donationSchema = new mongoose.Schema(
       default: "guest@example.com"
     },
     amount: {
-      type: Number, // Storing as Number is better for math later
+      type: Number, 
       required: true,
     },
     status: {
       type: String,
-      default: "pending", // pending -> success
+      default: "pending", 
     },
     paymentId: {
       type: String,
@@ -25,7 +25,7 @@ const donationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// If the model exists, use it. Otherwise, create it.
+
 const Donation = mongoose.models.Donation || mongoose.model("Donation", donationSchema);
 
 export default Donation;

@@ -6,7 +6,7 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function GET(req) {
   try {
-    // 1. Security Check
+   
     const session = await getServerSession(authOptions);
     if (session?.user?.role !== "admin") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -14,7 +14,7 @@ export async function GET(req) {
 
     await connectMongoDB();
 
-    // 2. Fetch all donations (sorted: newest first)
+
     const donations = await Donation.find({}).sort({ createdAt: -1 });
 
     return NextResponse.json({ donations }, { status: 200 });

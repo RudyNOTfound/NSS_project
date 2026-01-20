@@ -7,7 +7,7 @@ export async function POST(req) {
     const { donationId } = await req.json();
     await connectMongoDB();
 
-    // Mark as failed
+   
     await Donation.findByIdAndUpdate(donationId, {
       status: "failed",
     });

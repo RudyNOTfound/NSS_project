@@ -25,18 +25,18 @@ export default function DonationHistoryPage() {
     fetchHistory();
   }, []);
 
-  // ✅ NEW: Helper to format Date and Time separately
+  
   const getDateTime = (dateString) => {
     const dateObj = new Date(dateString);
     
-    // Format: "Jan 15, 2024"
+    
     const date = dateObj.toLocaleDateString('en-US', {
       month: 'short', 
       day: 'numeric', 
       year: 'numeric'
     });
 
-    // Format: "02:30 PM"
+    
     const time = dateObj.toLocaleTimeString('en-US', {
       hour: '2-digit', 
       minute: '2-digit'
@@ -45,7 +45,7 @@ export default function DonationHistoryPage() {
     return { date, time };
   };
 
-  // Helper for Status Styles
+  
   const getStatusStyles = (status) => {
     switch (status.toLowerCase()) {
       case 'success':
@@ -61,9 +61,9 @@ export default function DonationHistoryPage() {
 
   const getStatusIcon = (status) => {
     switch (status.toLowerCase()) {
-      case 'success': return '●'; // Dot
-      case 'pending': return '◌'; // Circle
-      case 'failed':  return '✕'; // Cross
+      case 'success': return '●'; 
+      case 'pending': return '◌'; 
+      case 'failed':  return '✕'; 
       default: return '-';
     }
   };
@@ -73,7 +73,7 @@ export default function DonationHistoryPage() {
       <Sidebar />
       
       <main className="flex-1 ml-64 p-10">
-        {/* Page Header */}
+      
         <div className="flex justify-between items-end mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Donation History</h1>
@@ -83,10 +83,10 @@ export default function DonationHistoryPage() {
           
         </div>
 
-        {/* Main Card Container */}
+      
         <div className="bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">
           
-          {/* Table Header */}
+         
           <div className="grid grid-cols-12 px-6 py-4 border-b border-gray-100 bg-gray-50/50 items-center">
             <div className="col-span-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Date & Time</div>
             <div className="col-span-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Donation ID</div>
@@ -94,7 +94,7 @@ export default function DonationHistoryPage() {
             <div className="col-span-3 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Status</div>
           </div>
 
-          {/* Loading State */}
+        
           {loading && (
             <div className="p-12 text-center">
               <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
@@ -102,7 +102,7 @@ export default function DonationHistoryPage() {
             </div>
           )}
 
-          {/* Empty State */}
+      
           {!loading && donations.length === 0 && (
             <div className="p-16 text-center flex flex-col items-center justify-center">
               <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-3xl mb-4">
@@ -118,7 +118,7 @@ export default function DonationHistoryPage() {
             </div>
           )}
 
-          {/* Data Rows */}
+         
           <div className="divide-y divide-gray-50">
             {!loading && donations.map((donation) => {
               const { date, time } = getDateTime(donation.createdAt);
@@ -126,7 +126,7 @@ export default function DonationHistoryPage() {
               return (
                 <div key={donation._id} className="grid grid-cols-12 px-6 py-5 hover:bg-purple-50/30 transition-colors items-center group">
                   
-                  {/* Column 1: Date & Time (Stacked) */}
+              
                   <div className="col-span-3">
                     <p className="font-bold text-gray-800 text-sm">
                         <span suppressHydrationWarning>{date}</span>
@@ -137,7 +137,7 @@ export default function DonationHistoryPage() {
                     </p>
                   </div>
 
-                  {/* Column 2: ID */}
+              
                   <div className="col-span-3">
                     <div className="inline-flex items-center gap-2 bg-gray-50 px-2 py-1 rounded-lg border border-gray-100 group-hover:border-purple-100 transition-colors">
                         <span className="text-xs font-mono text-gray-500">
@@ -146,14 +146,14 @@ export default function DonationHistoryPage() {
                     </div>
                   </div>
 
-                  {/* Column 3: Amount */}
+               
                   <div className="col-span-3">
                     <span className="text-gray-900 font-bold text-lg">
                         ₹{donation.amount}
                     </span>
                   </div>
 
-                  {/* Column 4: Status */}
+             
                   <div className="col-span-3 text-right">
                     <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide shadow-sm ${getStatusStyles(donation.status)}`}>
                       <span className="text-[10px]">{getStatusIcon(donation.status)}</span>

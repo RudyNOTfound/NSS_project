@@ -14,7 +14,7 @@ export default function UserDashboard() {
   const [recentDonation, setRecentDonation] = useState(null);
 
   useEffect(() => {
-    // Fetch stats on load
+   
     const fetchDashboardData = async () => {
       try {
         const res = await fetch("/api/donations/history");
@@ -46,7 +46,7 @@ export default function UserDashboard() {
       <Sidebar />
       
       <main className="flex-1 ml-64 p-10">
-        {/* Welcome Header */}
+        
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             Welcome back, {session?.user?.name ? session.user.name.split(" ")[0] : "Donor"}!
@@ -56,13 +56,13 @@ export default function UserDashboard() {
           </p>
         </div>
 
-        {/* --- DASHBOARD GRID --- */}
+    
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           
-          {/* Card 1: Donate Online (Action) */}
+          
           <Link href="/user/donate" className="group">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              {/* IMAGE HEADER */}
+             
               <div className="h-40 relative overflow-hidden">
                  <img 
                    src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&q=80&w=800" 
@@ -79,9 +79,9 @@ export default function UserDashboard() {
             </div>
           </Link>
 
-          {/* Card 2: Donations Made (Stat) */}
+          
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full">
-            {/* IMAGE HEADER */}
+            
             <div className="h-40 relative overflow-hidden">
                <img 
                  src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800" 
@@ -97,9 +97,9 @@ export default function UserDashboard() {
             </div>
           </div>
 
-          {/* Card 3: Member Since (Stat) */}
+          
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full">
-            {/* IMAGE HEADER */}
+            
             <div className="h-40 relative overflow-hidden">
                <img 
                  src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=800" 
@@ -115,7 +115,7 @@ export default function UserDashboard() {
             </div>
           </div>
 
-          {/* Card 4: Recent Activity (Kept Clean / No Image as requested) */}
+          
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full md:col-span-2 lg:col-span-2">
              <div className="p-6 h-full flex flex-col justify-center">
                 <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -152,10 +152,10 @@ export default function UserDashboard() {
              </div>
           </div>
 
-           {/* Card 5: Profile (Settings) */}
+          
            <Link href="/user/profile" className="group">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              {/* IMAGE HEADER */}
+              
               <div className="h-40 relative overflow-hidden">
                  <img 
                    src="https://plus.unsplash.com/premium_photo-1682092585257-58d1c813d9b4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmdvfGVufDB8fDB8fHww" 
